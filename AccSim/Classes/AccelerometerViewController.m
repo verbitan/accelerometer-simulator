@@ -10,6 +10,7 @@
 #import "AccelerationInfo.h"
 
 @implementation AccelerometerViewController
+
 @synthesize myTableView;
 @synthesize myNavigationBar;
 @synthesize values;
@@ -18,6 +19,10 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+
+        // Get Device ID
+        uniqueIdentifier = [[[UIDevice currentDevice] uniqueIdentifier] copy];
+        
 		// Register for acceleration sensor notifications
 		[[NSNotificationCenter defaultCenter] addObserver:self 
 												 selector:@selector(sensorUpdated:) 
@@ -101,7 +106,7 @@
 			if (cell == nil) {
 				CGRect rect = CGRectMake(0, 0, 300, 44);
 			
-				cell = [[UITableViewCell alloc] initWithFrame:rect reuseIdentifier:@"Mode"];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Mode"];
 				cell.selectionStyle = UITableViewCellSelectionStyleNone;
 				
 				UILabel *title;
@@ -155,7 +160,7 @@
 			if (cell == nil) {
 				CGRect rect = CGRectMake(0, 0, 300, 44);
 				
-				cell = [[UITableViewCell alloc] initWithFrame:rect reuseIdentifier:sliderName];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:sliderName];
 				cell.selectionStyle = UITableViewCellSelectionStyleNone;
 				
 				UILabel *title;
@@ -223,7 +228,9 @@
 	z = axis[2].value;
 	
 	// create information message
-	AccelerationInfo *accelInfo = [AccelerationInfo createWithTimestamp:CFAbsoluteTimeGetCurrent() X:x Y:y Z:z];
+
+    NSLog(@"%@",uniqueIdentifier);
+AccelerationInfo *accelInfo = [AccelerationInfo createWithTimestamp:CFAbsoluteTimeGetCurrent() X:x Y:y Z:z deviceID:uniqueIdentifier];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"AccelerationUpdate" object:accelInfo];	
 	
 	// update matching value label
@@ -256,7 +263,7 @@
 	}
 		
 	// create information message
-	AccelerationInfo *accelInfo = [AccelerationInfo createWithTimestamp:timeStamp X:x Y:y Z:z];
+	AccelerationInfo *accelInfo = [AccelerationInfo createWithTimestamp:timeStamp X:x Y:y Z:z deviceID:uniqueIdentifier];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"AccelerationUpdate" object:accelInfo];
 	

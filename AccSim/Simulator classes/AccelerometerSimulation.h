@@ -30,7 +30,7 @@
 @end
 
 // our own version of the Accelerometer
-@interface AccelerometerSimulation : UIAccelerometer
+@interface AccelerometerSimulation : UIAccelerometer <NSMachPortDelegate>
 {
 
 	//CFSocketRef udpSocket;

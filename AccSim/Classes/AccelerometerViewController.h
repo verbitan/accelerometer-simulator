@@ -13,6 +13,9 @@
 #define kAccelerometerManual 2
 
 @interface AccelerometerViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAccelerometerDelegate> {
+    // Device Id
+    NSString *uniqueIdentifier;
+    
 	// main view for storing controls
 	IBOutlet UITableView *myTableView;
 	IBOutlet UINavigationBar *myNavigationBar;

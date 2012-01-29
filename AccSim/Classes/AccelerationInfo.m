@@ -28,4 +28,16 @@
 	return newInfo;
 }
 
++ (AccelerationInfo*)createWithTimestamp:(NSTimeInterval)timeStamp X:(UIAccelerationValue)x Y:(UIAccelerationValue)y Z:(UIAccelerationValue)z deviceID:(NSString *)devID;
+{
+	AccelerationInfo *newInfo = [AccelerationInfo alloc];
+	newInfo.absTime = timeStamp;
+	newInfo.deviceID = devID;
+	newInfo.x = x;
+	newInfo.y = y;
+	newInfo.z = z;
+
+	return newInfo;
+}
+
 @end
